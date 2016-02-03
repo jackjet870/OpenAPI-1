@@ -8,12 +8,11 @@
   "frameworks": {
     "net451": {
       "dependencies": {
-        "Newtonsoft.Json.Schema": "2.0.2"
       }
     }
   },
   "dependencies": {
     "Newtonsoft.Json": "8.0.2",
-    "YamlDotNet": "3.8.0"
+    "Newtonsoft.Json.Schema": "2.0.2",
   }
 }
