@@ -6,8 +6,9 @@
     /// <remarks>http://swagger.io/specification/#tagObject</remarks>
     public class Tag
     {
-        public Tag()
+        public Tag(string name)
         {
+            this.Name = name;
         }
 
         /// <summary>
@@ -18,11 +19,11 @@
         /// <summary>
         /// A short description for the tag. GFM syntax can be used for rich text representation.
         /// </summary>
-        public string Description { get; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Additional external documentation for this tag.
         /// </summary>
-        public ExternalDocumentation ExternamDocs { get; }
+        public ExternalDocumentation ExternamDocs { get; set; }
     }
 }

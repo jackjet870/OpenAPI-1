@@ -395,11 +395,11 @@ namespace OpenAPI.Schema
 
         private static JValue ToJson<T>(this T? value, Func<T, JValue> toJson) where T : struct => value == null ? null : toJson(value.Value);
 
-        private static JArray ToJson<T>(this T[] values, Func<T, JToken> toJson) => values == null ? null : new JArray(values.Select(toJson));
+        private static JArray ToJson<T>(this IEnumerable<T> values, Func<T, JToken> toJson) => values == null ? null : new JArray(values.Select(toJson));
 
-        private static JToken ToJson<T>(this Dictionary<string, T> values, Func<T, JToken> toJson, JToken nullToken = null) => values.ToJson(k => k, toJson, nullToken);
+        private static JToken ToJson<T>(this IDictionary<string, T> values, Func<T, JToken> toJson, JToken nullToken = null) => values.ToJson(k => k, toJson, nullToken);
 
-        private static JToken ToJson<TKey, TValue>(this Dictionary<TKey, TValue> values, Func<TKey, string> toString, Func<TValue, JToken> toJson, JToken nullToken = null)
+        private static JToken ToJson<TKey, TValue>(this IDictionary<TKey, TValue> values, Func<TKey, string> toString, Func<TValue, JToken> toJson, JToken nullToken = null)
         {
             if (values == null)
             {
@@ -413,17 +413,17 @@ namespace OpenAPI.Schema
             return jItems;
         }
 
-        private static JArray ToJson(this IOperationParameter[] values) => values.ToJson(v => v.ToJson());
-        private static JArray ToJson(this string[] values) => values.ToJson(v => v.ToJson());
+        private static JArray ToJson(this IEnumerable<IOperationParameter> values) => values.ToJson(v => v.ToJson());
+        private static JArray ToJson(this IEnumerable<string> values) => values.ToJson(v => v.ToJson());
 
-        private static JArray ToJson(this Dictionary<string, string[]>[] values) => values.ToJson(v => v.ToJson());
+        private static JArray ToJson(this IEnumerable<IDictionary<string, ICollection<string>>> values) => values.ToJson(v => v.ToJson());
 
-        private static JToken ToJson(this Dictionary<string, string[]> values) => values.ToJson(a => a.ToJson(s => s.ToJson()), JValue.CreateNull());
-        private static JToken ToJson(this Dictionary<string, string> values) => values.ToJson(a => a.ToJson());
+        private static JToken ToJson(this IDictionary<string, ICollection<string>> values) => values.ToJson(a => a.ToJson(s => s.ToJson()), JValue.CreateNull());
+        private static JToken ToJson(this IDictionary<string, string> values) => values.ToJson(a => a.ToJson());
 
-        private static JToken ToJson(this Dictionary<string, PathItem> values) => values.ToJson(p => p.ToJson());
-        private static JToken ToJson(this Dictionary<string, Header> values) => values.ToJson(p => p.ToJson());
-        private static JToken ToJson(this Dictionary<HttpStatusCode?, IResponseObject> values) => values.ToJson(k => k.GetCode(), r => r.ToJson());
+        private static JToken ToJson(this IDictionary<string, PathItem> values) => values.ToJson(p => p.ToJson());
+        private static JToken ToJson(this IDictionary<string, Header> values) => values.ToJson(p => p.ToJson());
+        private static JToken ToJson(this IDictionary<HttpStatusCode?, IResponseObject> values) => values.ToJson(k => k.GetCode(), r => r.ToJson());
 
         private static void AddOptional(this JObject target, string name, JToken value)
         {

@@ -4,8 +4,9 @@
     /// The Reference Object is a JSON Reference that uses a JSON Pointer as its value. For this specification, only canonical dereferencing is supported.</summary>
     public class Reference : IOperationParameter, IResponseObject
     {
-        public Reference()
+        public Reference(string reference)
         {
+            this.Ref = reference;
         }
 
         /// <summary>Required. The reference string.</summary>

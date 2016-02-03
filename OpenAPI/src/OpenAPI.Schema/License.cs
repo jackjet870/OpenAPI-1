@@ -6,14 +6,15 @@ namespace OpenAPI.Schema
     /// <remarks>http://swagger.io/specification/#licenseObject</remarks>
     public class License
     {
-        public License()
+        public License(string name)
         {
+            this.Name = name;
         }
 
         /// <summary>Required. The license name used for the API.</summary>
         public string Name { get; }
 
         /// <summary>A URL to the license used for the API. MUST be in the format of a URL.</summary>
-        public Uri Url { get; }
+        public Uri Url { get; set; }
     }
 }
