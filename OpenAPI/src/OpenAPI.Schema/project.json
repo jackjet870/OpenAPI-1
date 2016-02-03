@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-*",
+  "description": "OpenAPI Schema Class Library",
+  "authors": [ "Sergiy Grytsenko" ],
+  "tags": [ "OpenAPI" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+  "frameworks": {
+    "net451": {
+      "dependencies": {
+        "Newtonsoft.Json.Schema": "2.0.2"
+      }
+    }
+  },
+  "dependencies": {
+    "Newtonsoft.Json": "8.0.2",
+    "YamlDotNet": "3.8.0"
+  }
+}
