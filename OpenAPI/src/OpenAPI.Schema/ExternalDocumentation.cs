@@ -13,7 +13,7 @@ namespace OpenAPI.Schema
         }
 
         /// <summary>A short description of the target documentation. GFM syntax can be used for rich text representation.</summary>
-        public string Description { get; set; }
+        public string Description { get; }
 
         /// <summary>Required. The URL for the target documentation. Value MUST be in the format of a URL.</summary>
         public Uri Url { get; }

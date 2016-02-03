@@ -13,16 +13,36 @@ namespace OpenAPI.Schema
         {
             var jRoot = new JObject
                         {
-                            { "swagger", root.Swagger.ToJson() }
+                            { "swagger", root.Swagger.ToJson() },
+                            { "paths", root.Paths.ToJson() },
+                            { "info", root.Info.ToJson() }
                         };
-            jRoot.AddOptional("info", root.Info.ToJson());
             jRoot.AddOptional("host", root.Host.ToJson());
             jRoot.AddOptional("basePath", root.BasePath.ToJson());
             jRoot.AddOptional("schemes", root.Schemes.ToJson());
             jRoot.AddOptional("consumes", root.Consumes.ToJson());
             jRoot.AddOptional("produces", root.Produces.ToJson());
-            jRoot.AddOptional("paths", root.Paths.ToJson());
+            jRoot.AddOptional("definitions", root.Definitions.ToJson());
+            jRoot.AddOptional("security", root.Security.ToJson());
+            jRoot.AddOptional("tags", root.Tags.ToJson());
+            jRoot.AddOptional("externamDocs", root.ExternamDocs.ToJson());
             return jRoot;
+        }
+
+        private static JToken ToJson(this Tag tag)
+        {
+            if (tag == null)
+            {
+                return JValue.CreateNull();
+            }
+            var jTag = new JObject
+                       {
+                           { "name", tag.Name.ToJson() }
+                       };
+            jTag.AddOptional("description", tag.Description.ToJson());
+            jTag.AddOptional("externamDocs", tag.ExternamDocs.ToJson());
+            return jTag;
+
         }
 
         private static JObject ToJson(this Info info)
@@ -413,10 +433,12 @@ namespace OpenAPI.Schema
             return jItems;
         }
 
+        private static JArray ToJson(this IEnumerable<Tag> values) => values.ToJson(v => v.ToJson());
         private static JArray ToJson(this IEnumerable<IOperationParameter> values) => values.ToJson(v => v.ToJson());
         private static JArray ToJson(this IEnumerable<string> values) => values.ToJson(v => v.ToJson());
 
         private static JArray ToJson(this IEnumerable<IDictionary<string, ICollection<string>>> values) => values.ToJson(v => v.ToJson());
+        private static JArray ToJson(this IEnumerable<IDictionary<string, SchemaObject>> values) => values.ToJson(v => v.ToJson(s => s.ToJson()));
 
         private static JToken ToJson(this IDictionary<string, ICollection<string>> values) => values.ToJson(a => a.ToJson(s => s.ToJson()), JValue.CreateNull());
         private static JToken ToJson(this IDictionary<string, string> values) => values.ToJson(a => a.ToJson());

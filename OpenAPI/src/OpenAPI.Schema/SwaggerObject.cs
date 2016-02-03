@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace OpenAPI.Schema
 {
@@ -9,14 +6,9 @@ namespace OpenAPI.Schema
     /// <remarks>http://swagger.io/specification/#swaggerObject</remarks>
     public class SwaggerObject
     {
-        public SwaggerObject(Info info, IReadOnlyDictionary<string, PathItem> paths)
+        public SwaggerObject(Info info)
         {
             this.Info = info;
-            this.Paths = new Dictionary<string, PathItem>();
-            foreach (var pair in paths)
-            {
-                this.Paths.Add(pair.Key, pair.Value);
-            }
         }
 
         /// <summary>Required. Specifies the Swagger Specification version being used. It can be used by the Swagger UI and other clients to interpret the API listing. The value MUST be "2.0".</summary>
@@ -45,7 +37,7 @@ namespace OpenAPI.Schema
         /// <summary>Required. The available paths and operations for the API.</summary>
         /// <remarks>A relative path to an individual endpoint. The field name MUST begin with a slash. The path is appended to the basePath in order to construct the full URL. Path templating is allowed.</remarks>
         /// <remarks>http://swagger.io/specification/#pathTemplating</remarks>
-        public IDictionary<string, PathItem> Paths { get; }
+        public IDictionary<string, PathItem> Paths { get; } = new Dictionary<string, PathItem>();
 
         /// <summary>
         /// An object to hold data types produced and consumed by operations.

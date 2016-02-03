@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json.Linq;
-using Newtonsoft.Json.Schema;
+﻿using Newtonsoft.Json.Schema;
 
 namespace OpenAPI.Schema
 {
